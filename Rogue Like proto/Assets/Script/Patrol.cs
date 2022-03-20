@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gaurd : MonoBehaviour
+public class Patrol : MonoBehaviour
 {
     public float speed;
     private float waitTime;
@@ -24,7 +24,7 @@ public class Gaurd : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, startPoint, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, startPoint.position, speed * Time.deltaTime);
 
         if(Vector2.Distance(transform.position, startPoint.position) < 0.2f)
         {

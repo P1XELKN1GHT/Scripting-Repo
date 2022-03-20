@@ -11,9 +11,9 @@ public class MoveNShoot : MonoBehaviour
     Transform target;
 
     float shotDelay;
-    float startDelay;
+    float startDelay = 0.2f;
 
-    public GameObject projectile;
+    public GameObject Projectile;
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +27,25 @@ public class MoveNShoot : MonoBehaviour
     {
         if(Vector2.Distance(transform.position,target.position) > stopdist)
         {
-            Transform.position = Vector2.Movetowards(transform.position, target.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         }
-        else if(Vector2.Distance(transform.position, target.position) < stopdist && Vector2.Distance(transform.position, targetposition) > retreatdist)
+        else if(Vector2.Distance(transform.position, target.position) < stopdist && Vector2.Distance(transform.position, target.position) > retreatdist)
         {
-            transform.positionm= this.transform.position;
+            transform.position = this.transform.position;
         }
         else if(Vector2.Distance(transform.position,target.position) > retreatdist)
         {
-            Transform.position = Vector2.Movetowards(transform.position, target.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         }
-    }
+
+        if(shotDelay <= 0)
+        {
+            Instantiate(Projectile, transform.position, Quaternion.identity);
+            shotDelay = startDelay;
+        }
+        else
+        {
+            shotDelay -= Time.deltaTime;
+        }
+    }   
 }
