@@ -7,6 +7,7 @@ public class Controller : MonoBehaviour
     [Header("Player Health")]
     public int curHp;
     public int maxHp;
+    public HealthBar healthBar;
 
     [Header("Player Move")]
     public float movespeed = 5.0f; //PLayers movement spped in game
@@ -21,10 +22,18 @@ public class Controller : MonoBehaviour
     public int dmg; // damage dealt to enemy
     public LayerMask enemyLayer;
 
+    [Header("Bag")]
+    public int Key;
+    public int Gold;
+    public int Crystals;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        curHp = maxHp;
+        healthBar.SetHealth(maxHp);
     }
 
     // Update is called once per frame
@@ -36,7 +45,9 @@ public class Controller : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             if(Time.time - lastAtkTime >= atkRate)
-                Attack();
+             {  
+                 Attack();
+             }
         }
 
     }
@@ -74,6 +85,7 @@ public class Controller : MonoBehaviour
      public void TakeDamage(int dmg)
     {
         curHp -= dmg;
+        healthBar.SetHealth(curHp);
 
         if(curHp == 0)
         {

@@ -14,6 +14,11 @@ public class Enmy : MonoBehaviour
     public int atkRate;
     public float lastAtkTime;
     public Controller Player;
+
+    [Header("Loot Drop")]
+    public GameObject lootdrop;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,14 +37,11 @@ public class Enmy : MonoBehaviour
     {
         curHp -= dmg;
 
-        if(curHp == 0)
+        if(curHp <= 0)
         {
             Die();
+            LootDrop();
         }
-    }
-    void Die()
-    {
-        Destroy(gameObject);
     }
     void Attack()
     {
@@ -47,4 +49,13 @@ public class Enmy : MonoBehaviour
         Player.TakeDamage(dmg);
         
     }
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+    void LootDrop()
+    {
+        Instantiate(lootdrop, transform.position, Quaternion.identity);
+    }
+    
 }

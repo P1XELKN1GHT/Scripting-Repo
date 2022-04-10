@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     Vector2 target;// "true" target used to avoid being hit 100% of the time
     private Controller Player;
     
+    
     // Start is called before the first frame update
     void Start()
     {
