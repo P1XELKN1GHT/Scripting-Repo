@@ -9,7 +9,7 @@ public class PlayerController2D : MonoBehaviour
     public float jumpheight;
 
     [Header("Ground?")]
-    private Rigidbody2D RB;
+    private Rigidbody2D rb;
     private bool isGrounded;
     public Transform groundcheck;
     public float groundcheckRadius;
@@ -21,10 +21,10 @@ public class PlayerController2D : MonoBehaviour
     void Start()
     {
         isGrounded = true;
-        RB = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         isGrounded = Physics2D.OverlapCircle(groundcheck.position, groundcheckRadius, isitground); //ground checking sensor
 
@@ -40,24 +40,20 @@ public class PlayerController2D : MonoBehaviour
        {
            moveVelocity = speed;
        }
-       if(Input.GetKey(KeyCode.A))
+        if(Input.GetKey(KeyCode.A))
        {
-        moveVelocity = speed;
+            moveVelocity = -speed;
        }
 
-       RB.velocity = new Vector2(moveVelocity, RB.velocity.y); // move player left & right
+        rb.velocity = new Vector2(moveVelocity, rb.velocity.y); // move player left & right
+        
     }
-
-    // Update is called once per frame
-    void Update()
+    void fixedUpdate()
     {
-       
-       
-       
-      
+        
     }
     public void Jump()
     {
-        RB.velocity = new Vector2(RB.velocity.x, jumpheight);
+        rb.velocity = new Vector2(rb.velocity.x, jumpheight);
     }
 }
